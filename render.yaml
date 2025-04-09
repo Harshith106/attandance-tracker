@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: attendance-tracker
+    env: docker
+    dockerfilePath: ./Dockerfile
+    plan: free
+    healthCheckPath: /
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.10.0
+      - key: PORT
+        value: 8080

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance Tracker</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Attendance Tracker</h1>
+            <p>Track your overall attendance with ease</p>
+        </header>
+
+        <div class="card">
+            {% if error %}
+            <div class="error-message">
+                <p>{{ error }}</p>
+            </div>
+            {% endif %}
+
+            {% if not result %}
+            <form id="loginForm" class="login-form">
+                <div class="form-group">
+                    <label for="username">Roll Number</label>
+                    <input type="text" id="username" name="username" required placeholder="Enter your roll number">
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <div class="password-container">
+                        <input type="password" id="password" name="password" required placeholder="Enter your password">
+                        <button type="button" class="toggle-password" aria-label="Toggle password visibility">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <button type="submit" id="submitBtn">Get Attendance</button>
+            </form>
+
+            <div class="bunk-calculator-link">
+                <a href="{{ url_for('bunk_calculator') }}">Want to know how many classes can you bunk for a week? Click here.</a>
+            </div>
+
+            <div id="progressContainer" class="progress-container">
+                <div class="progress-step" id="step-login">
+                    <div class="pulse"></div>
+                    <div class="text typing">Collecting username and password</div>
+                </div>
+                <div class="progress-step" id="step-user">
+                    <div class="pulse"></div>
+                    <div class="text">Logging in...</div>
+                </div>
+                <div class="progress-step" id="step-courses">
+                    <div class="pulse"></div>
+                    <div class="text">Collecting course data</div>
+                </div>
+                <div class="progress-step" id="step-attendance">
+                    <div class="pulse"></div>
+                    <div class="text">Calculating attendance</div>
+                </div>
+                <div class="progress-step" id="step-final">
+                    <div class="pulse"></div>
+                    <div class="text">Fetching final results</div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+
+        {% if result %}
+        <div class="card result-card">
+            <div class="student-info" id="studentInfoSection">
+                <h2>{{ result.student_name }}</h2>
+                <p>Roll Number: <span class="highlight">{{ result.roll_number }}</span></p>
+            </div>
+
+            <div class="course-list">
+                <h3><i class="fas fa-graduation-cap"></i> Course Attendance</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Course Name</th>
+                            <th>Percentage</th>
+                            <th>Attended</th>
+                            <th>Conducted</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for course, percentage, attended, conducted in result.courses|zip(result.percentages, result.classes_attended, result.classes_conducted) %}
+                        <tr>
+                            <td>{{ course }}</td>
+                            <td class="attendance">{{ percentage }}%</td>
+                            <td>{{ attended }}</td>
+                            <td>{{ conducted }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="summary">
+                <h3><i class="fas fa-chart-pie"></i> Attendance Summary</h3>
+                <table>
+                    <tbody>
+                        <tr>
+                            <td>Overall Attendance</td>
+                            <td class="attendance" id="finalPercentage">{{ result.overall_percentage }}%</td>
+                        </tr>
+                        <tr>
+                            <td>Total Classes Attended</td>
+                            <td class="attendance">{{ result.classes_attended|sum }}</td>
+                        </tr>
+                        <tr>
+                            <td>Total Classes Conducted</td>
+                            <td class="attendance">{{ result.classes_conducted|sum }}</td>
+                        </tr>
+                        
+                        {% if 'has_tt' in result and result.has_tt %}
+                        <!-- Show TT-specific data when TT classes are present -->
+                        <tr class="tt-data">
+                            <td>Attendance (without TT)</td>
+                            <td class="attendance">{{ result.overall_percentage_no_tt }}%</td>
+                        </tr>
+                        <tr class="tt-data">
+                            <td>Total Attended (without TT)</td>
+                            <td class="attendance">{{ result.classes_attended_no_tt|sum }}</td>
+                        </tr>
+                        <tr class="tt-data">
+                            <td>Total Conducted (without TT)</td>
+                            <td class="attendance">{{ result.classes_conducted_no_tt|sum }}</td>
+                        </tr>
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="card">
+            <button onclick="window.location.href='/'">Check Another Student</button>
+        </div>
+        {% endif %}
+    </div>
+
+    <footer class="modern-footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <h3>Attendance Tracker</h3>
+                <p>Simplifying attendance management since 2025</p>
+            </div>
+            <div class="social-icons">
+                <a href="https://github.com/Harshith106" target="_blank" aria-label="GitHub">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/p-harshith-09b357354/" target="_blank" aria-label="LinkedIn">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+                <a href="https://yourportfolio.com" target="_blank" aria-label="Portfolio">
+                    <i class="fas fa-globe"></i>
+                </a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Attendance Tracker. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

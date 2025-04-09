@@ -1,0 +1,219 @@
+/* Bunk Calculator Specific Styles */
+.calculator-container {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.calculator-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.input-with-tooltip {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.input-with-tooltip input {
+    width: 100%;
+    padding-right: 40px;
+}
+
+.tooltip {
+    position: absolute;
+    right: 10px;
+    color: var(--text-secondary);
+    cursor: pointer;
+}
+
+.tooltip-text {
+    visibility: hidden;
+    width: 200px;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 8px;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    transform: translateX(-90%);
+    opacity: 0;
+    transition: opacity 0.3s;
+    font-size: 0.85rem;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    pointer-events: none;
+}
+
+.tooltip-text::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 85%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #333 transparent transparent transparent;
+}
+
+.tooltip:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+}
+
+.current-percentage {
+    background-color: #333;
+    padding: 0.8rem;
+    border-radius: 4px;
+    color: var(--accent-color);
+    font-weight: 600;
+    font-size: 1.2rem;
+    text-align: center;
+    border: 1px solid #444;
+}
+
+.result-container {
+    margin-top: 1rem;
+    display: none;
+}
+
+.result-card {
+    background: var(--card-bg-gradient);
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    animation: fadeIn 0.5s ease-out;
+}
+
+.result-card h3 {
+    margin-bottom: 1rem;
+    color: var(--accent-color);
+    text-align: center;
+}
+
+.result-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #333;
+}
+
+.result-label {
+    color: var(--text-secondary);
+}
+
+.result-value {
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.warning-message {
+    margin-top: 1rem;
+    padding: 0.8rem;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    text-align: center;
+    display: none;
+}
+
+.warning-message.safe {
+    background-color: rgba(76, 175, 80, 0.1);
+    color: #4caf50;
+    border: 1px solid rgba(76, 175, 80, 0.3);
+}
+
+.warning-message.risky {
+    background-color: rgba(244, 67, 54, 0.1);
+    color: #f44336;
+    border: 1px solid rgba(244, 67, 54, 0.3);
+}
+
+.info-card {
+    margin-top: 2rem;
+}
+
+.info-card h3 {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--accent-color);
+    margin-bottom: 1rem;
+}
+
+.info-card p {
+    margin-bottom: 1rem;
+    line-height: 1.6;
+}
+
+.info-card ul {
+    padding-left: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.info-card li {
+    margin-bottom: 0.5rem;
+}
+
+.back-link {
+    margin: 2rem 0;
+    text-align: center;
+}
+
+.back-link a {
+    color: var(--accent-color);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: transform 0.3s;
+}
+
+.back-link a:hover {
+    transform: translateX(-5px);
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    .calculator-container {
+        gap: 1.5rem;
+    }
+
+    .tooltip-text {
+        width: 180px;
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .calculator-form {
+        gap: 1rem;
+    }
+
+    .current-percentage {
+        font-size: 1.1rem;
+        padding: 0.7rem;
+    }
+
+    .result-card {
+        padding: 1.2rem;
+    }
+
+    .tooltip-text {
+        width: 160px;
+        transform: translateX(-80%);
+    }
+
+    .info-card h3 {
+        font-size: 1.1rem;
+    }
+
+    .info-card p, .info-card li {
+        font-size: 0.9rem;
+    }
+}

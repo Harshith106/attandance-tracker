@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Class Bunk Calculator – How Many Classes Can You Skip This Week?</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bunk_calculator.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Classes Skip Calculator</h1>
+            <p>Find out how many classes you can skip this week</p>
+        </header>
+
+        <div class="card">
+            <div class="calculator-container">
+                <form id="bunkCalculatorForm" class="calculator-form">
+                    <div class="form-group">
+                        <label for="totalClasses">Total Classes Held So Far</label>
+                        <div class="input-with-tooltip">
+                            <input type="number" id="totalClasses" name="totalClasses" min="1" required placeholder="e.g., 100">
+                            <div class="tooltip">
+                                <i class="fas fa-info-circle"></i>
+                                <span class="tooltip-text">Total number of classes conducted in the semester up to now</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="attendedClasses">Total Classes Attended So Far</label>
+                        <div class="input-with-tooltip">
+                            <input type="number" id="attendedClasses" name="attendedClasses" min="0" required placeholder="e.g., 80">
+                            <div class="tooltip">
+                                <i class="fas fa-info-circle"></i>
+                                <span class="tooltip-text">Number of classes you've actually attended</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Current Attendance Percentage</label>
+                        <div class="current-percentage">
+                            <span id="currentPercentage">0</span>%
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="desiredPercentage">Desired Attendance Percentage</label>
+                        <div class="input-with-tooltip">
+                            <input type="number" id="desiredPercentage" name="desiredPercentage" min="1" max="100" required placeholder="e.g., 75">
+                            <div class="tooltip">
+                                <i class="fas fa-info-circle"></i>
+                                <span class="tooltip-text">Minimum attendance % you want to maintain</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="classesPerWeek">Classes per Week</label>
+                        <div class="input-with-tooltip">
+                            <input type="number" id="classesPerWeek" name="classesPerWeek" min="1" required placeholder="e.g., 10">
+                            <div class="tooltip">
+                                <i class="fas fa-info-circle"></i>
+                                <span class="tooltip-text">Average number of classes held in a week</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="button" id="calculateBtn">Calculate</button>
+                </form>
+
+                <div id="resultContainer" class="result-container">
+                    <div class="result-card">
+                        <h3>Results</h3>
+                        <div class="result-item">
+                            <span class="result-label">Current Attendance:</span>
+                            <span id="resultCurrentPercentage" class="result-value">0%</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="result-label">Maximum Bunkable Classes:</span>
+                            <span id="resultMaxBunk" class="result-value">0</span>
+                        </div>
+                        <div id="warningMessage" class="warning-message"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card info-card">
+            <h3><i class="fas fa-lightbulb"></i> How It Works</h3>
+            <p>This calculator helps you determine how many classes you can safely skip this week without dropping below your desired attendance percentage.</p>
+            <p>The formula used is: B<sub>max</sub> = Floor(A + W - (D/100) × (T + W))</p>
+            <p>Where:</p>
+            <ul>
+                <li><strong>T</strong> = Total classes held so far</li>
+                <li><strong>A</strong> = Classes you've attended so far</li>
+                <li><strong>D</strong> = Desired attendance percentage</li>
+                <li><strong>W</strong> = Classes per week</li>
+                <li><strong>B<sub>max</sub></strong> = Maximum classes you can bunk</li>
+            </ul>
+        </div>
+
+        <div class="back-link">
+            <a href="{{ url_for('index') }}"><i class="fas fa-arrow-left"></i> Back to Attendance Tracker</a>
+        </div>
+    </div>
+
+    <footer>
+        <p>Attendance Tracker &copy; 2025</p>
+        <div class="social-icons">
+            <a href="https://github.com/Harshith106" target="_blank"><i class="fab fa-github"></i></a>
+            <a href="https://www.linkedin.com/in/p-harshith-09b357354/" target="_blank"><i class="fab fa-linkedin"></i></a>
+            <a href="https://yourportfolio.com" target="_blank"><i class="fas fa-globe"></i></a>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/bunk_calculator.js') }}"></script>
+</body>
+</html>
