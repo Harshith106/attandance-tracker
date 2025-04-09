@@ -116,8 +116,15 @@ def scrape_attendance(username: str, password: str) -> Optional[Dict]:
                 return None
 
             print("\n=== Getting Student Info ===")
+            time.sleep(2)
             try:
-                student_name = page.text_content('#studentName')
+                student_name_element = page.query_selector('#studentName')
+                if student_name_element:
+                    student_name = student_name_element.text_content().strip()
+                    print(f"Student name: {student_name}")
+                else:
+                    print("Student name element not found or not visible.")
+                    student_name = "Unknown"
                 roll_number = username
 
                 print("\n=== Getting All Course Attendance ===")

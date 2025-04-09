@@ -14,7 +14,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Form submission with animated progress steps
     const loginForm = document.getElementById('loginForm');
     const progressContainer = document.getElementById('progressContainer');
     const submitBtn = document.getElementById('submitBtn');
@@ -96,11 +95,11 @@ document.addEventListener('DOMContentLoaded', function() {
             resultsCard = document.createElement('div');
             resultsCard.className = 'card result-card';
 
-            // Create student info section
+            // Create student info section - Fixed: Using data.student_name directly
             const studentInfo = document.createElement('div');
             studentInfo.className = 'student-info';
             studentInfo.innerHTML = `
-                <h2>${data.student_name}</h2>
+                <h2 id="studentName">${data.student_name || 'Student'}</h2>
                 <p>Roll Number: <span class="highlight">${data.roll_number}</span></p>
             `;
 

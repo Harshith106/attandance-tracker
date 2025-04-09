@@ -74,7 +74,7 @@
         {% if result %}
         <div class="card result-card">
             <div class="student-info" id="studentInfoSection">
-                <h2>{{ result.student_name }}</h2>
+                <h2 id="studentName">{{ result.student_name }}</h2>
                 <p>Roll Number: <span class="highlight">{{ result.roll_number }}</span></p>
             </div>
 
@@ -118,7 +118,7 @@
                             <td>Total Classes Conducted</td>
                             <td class="attendance">{{ result.classes_conducted|sum }}</td>
                         </tr>
-                        
+
                         {% if 'has_tt' in result and result.has_tt %}
                         <!-- Show TT-specific data when TT classes are present -->
                         <tr class="tt-data">
